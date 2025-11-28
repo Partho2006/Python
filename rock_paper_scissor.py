@@ -1,32 +1,46 @@
 import random;
 
-c = ('r','p','s');
 dic = {'r':'Rock', 'p':'Paper', 's':'Scissor'};
+c = tuple(dic.keys());
 
-while True:
- choice = input('Rock, Paper, or Scissor? (r/p/s): ').lower(); 
+def get_user_choice():
+   while True:
+    choice = input('Rock, Paper, or Scissor? (r/p/s): ').lower(); 
+    if choice in c:
+      return choice;
+    else:
+      print('Invalid choice !');
 
- if (choice not in c):
-    print('Invalid choice !');
-    continue;
- comp_choice = random.choice(c);
+def display_choices(user_choice,comp_choice):
+   print(f'You chose {dic[user_choice]}');
+   print(f'You chose {dic[comp_choice]}');
 
- print(f'You chose {dic[choice]}');
- print(f'You chose {dic[comp_choice]}');
-
- if choice == comp_choice:
+def winner(user_choice,comp_choice):
+   if user_choice == comp_choice:
     print('draw !!');
- elif ( 
-    (choice == 'r' and comp_choice == 's') or 
-    (choice == 's' and comp_choice == 'p') or 
-    (choice == 'p' and comp_choice == 'r') ):
+   elif ( 
+    (user_choice == 'r' and comp_choice == 's') or 
+    (user_choice == 's' and comp_choice == 'p') or 
+    (user_choice == 'p' and comp_choice == 'r') ):
       print('You win !!');
- else:
+   else:
       print('You lose !!');
 
- user = input('Continue (y/n): ').lower();
- if user == 'n':
-    break;
+def play_game():
+ while True:
+  user_choice = get_user_choice();
+
+  comp_choice = random.choice(c);
+
+  display_choices(user_choice,comp_choice);
+
+  winner(user_choice,comp_choice)
+
+  user = input("Enter 'n' to quit: ").lower();
+  if user == 'n':
     print('Well Played !');
- else:
+    break;
+  else:
     continue;
+
+play_game();
